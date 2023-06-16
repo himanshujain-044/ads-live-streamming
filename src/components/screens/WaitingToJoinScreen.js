@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import animationData from "../../../src/static/animations/join_meeting.json";
 import Lottie from "lottie-react";
 import useIsTab from "../../hooks/useIsTab";
 import useIsMobile from "../../hooks/useIsMobile";
 
 const WaitingToJoinScreen = () => {
-  const waitingMessages = [
-    { index: 0, text: "Creating a room for you..." },
-    { index: 1, text: "Almost there..." },
-  ];
+  const waitingMessages = useMemo(() => {
+    return [
+      { index: 0, text: "Creating a room for you..." },
+      { index: 1, text: "Almost there..." },
+    ];
+  }, []);
   const [message, setMessage] = useState(waitingMessages[0]);
 
   const intervalRef = useRef(null);
@@ -25,7 +27,7 @@ const WaitingToJoinScreen = () => {
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [waitingMessages]);
 
   const isTab = useIsTab();
   const isMobile = useIsMobile();

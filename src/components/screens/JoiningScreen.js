@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import { MeetingDetailsScreen } from "../MeetingDetailsScreen";
 import { createMeeting, getToken, validateMeeting } from "../../api";
 import { CheckCircleIcon } from "@heroicons/react/outline";
@@ -64,7 +70,7 @@ export function JoiningScreen({
   const webcamOn = useMemo(() => !!videoTrack, [videoTrack]);
   const micOn = useMemo(() => !!audioTrack, [audioTrack]);
 
-  const _handleTurnOffWebcam = () => {
+  const _handleTurnOffWebcam = useCallback(() => {
     const videoTrack = videoTrackRef.current;
 
     if (videoTrack) {
@@ -72,7 +78,7 @@ export function JoiningScreen({
       setVideoTrack(null);
       setWebcamOn(false);
     }
-  };
+  }, [setWebcamOn]);
   const _handleTurnOnWebcam = () => {
     const videoTrack = videoTrackRef.current;
 
@@ -91,7 +97,7 @@ export function JoiningScreen({
       _handleTurnOnWebcam();
     }
   };
-  const _handleTurnOffMic = () => {
+  const _handleTurnOffMic = useCallback(() => {
     const audioTrack = audioTrackRef.current;
 
     if (audioTrack) {
@@ -100,7 +106,7 @@ export function JoiningScreen({
       setAudioTrack(null);
       setMicOn(false);
     }
-  };
+  }, [setMicOn]);
   const _handleTurnOnMic = () => {
     const audioTrack = audioTrackRef.current;
 
@@ -149,49 +155,52 @@ export function JoiningScreen({
     setAudioTrack(audioTrack);
   };
 
-  const getDefaultMediaTracks = async ({ mic, webcam, firstTime }) => {
-    if (mic) {
-      const audioConstraints = {
-        audio: true,
-      };
+  const getDefaultMediaTracks = useCallback(
+    async ({ mic, webcam, firstTime }) => {
+      if (mic) {
+        const audioConstraints = {
+          audio: true,
+        };
 
-      const stream = await navigator.mediaDevices.getUserMedia(
-        audioConstraints
-      );
-      const audioTracks = stream.getAudioTracks();
+        const stream = await navigator.mediaDevices.getUserMedia(
+          audioConstraints
+        );
+        const audioTracks = stream.getAudioTracks();
 
-      const audioTrack = audioTracks.length ? audioTracks[0] : null;
+        const audioTrack = audioTracks.length ? audioTracks[0] : null;
 
-      setAudioTrack(audioTrack);
-      if (firstTime) {
-        setSelectedMic({
-          id: audioTrack?.getSettings()?.deviceId,
-        });
+        setAudioTrack(audioTrack);
+        if (firstTime) {
+          setSelectedMic({
+            id: audioTrack?.getSettings()?.deviceId,
+          });
+        }
       }
-    }
 
-    if (webcam) {
-      const videoConstraints = {
-        video: {
-          width: 1280,
-          height: 720,
-        },
-      };
+      if (webcam) {
+        const videoConstraints = {
+          video: {
+            width: 1280,
+            height: 720,
+          },
+        };
 
-      const stream = await navigator.mediaDevices.getUserMedia(
-        videoConstraints
-      );
-      const videoTracks = stream.getVideoTracks();
+        const stream = await navigator.mediaDevices.getUserMedia(
+          videoConstraints
+        );
+        const videoTracks = stream.getVideoTracks();
 
-      const videoTrack = videoTracks.length ? videoTracks[0] : null;
-      setVideoTrack(videoTrack);
-      if (firstTime) {
-        setSelectedWebcam({
-          id: videoTrack?.getSettings()?.deviceId,
-        });
+        const videoTrack = videoTracks.length ? videoTracks[0] : null;
+        setVideoTrack(videoTrack);
+        if (firstTime) {
+          setSelectedWebcam({
+            id: videoTrack?.getSettings()?.deviceId,
+          });
+        }
       }
-    }
-  };
+    },
+    [setSelectedMic, setSelectedWebcam]
+  );
 
   async function startMuteListener() {
     const currentAudioTrack = audioTrackRef.current;
@@ -206,32 +215,6 @@ export function JoiningScreen({
       });
     }
   }
-
-  const getDevices = async ({ micEnabled, webcamEnabled }) => {
-    try {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-
-      const webcams = devices.filter((d) => d.kind === "videoinput");
-      const mics = devices.filter((d) => d.kind === "audioinput");
-
-      const hasMic = mics.length > 0;
-      const hasWebcam = webcams.length > 0;
-
-      setDevices({ webcams, mics, devices });
-
-      if (hasMic) {
-        startMuteListener();
-      }
-
-      getDefaultMediaTracks({
-        mic: hasMic && micEnabled,
-        webcam: hasWebcam && webcamEnabled,
-        firstTime: true,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
     audioTrackRef.current = audioTrack;
@@ -250,7 +233,7 @@ export function JoiningScreen({
       _handleTurnOffMic();
       _handleTurnOffWebcam();
     }
-  }, [meetingMode]);
+  }, [_handleTurnOffMic, _handleTurnOffWebcam, meetingMode]);
 
   useEffect(() => {
     videoTrackRef.current = videoTrack;
@@ -280,8 +263,34 @@ export function JoiningScreen({
   }, [videoTrack, setting, settingDialogueOpen]);
 
   useEffect(() => {
+    const getDevices = async ({ micEnabled, webcamEnabled }) => {
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+
+        const webcams = devices.filter((d) => d.kind === "videoinput");
+        const mics = devices.filter((d) => d.kind === "audioinput");
+
+        const hasMic = mics.length > 0;
+        const hasWebcam = webcams.length > 0;
+
+        setDevices({ webcams, mics, devices });
+
+        if (hasMic) {
+          startMuteListener();
+        }
+
+        getDefaultMediaTracks({
+          mic: hasMic && micEnabled,
+          webcam: hasWebcam && webcamEnabled,
+          firstTime: true,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     getDevices({ micEnabled, webcamEnabled });
-  }, []);
+  }, [getDefaultMediaTracks, micEnabled, webcamEnabled]);
 
   const ButtonWithTooltip = ({ onClick, onState, OnIcon, OffIcon, mic }) => {
     const [tooltipShow, setTooltipShow] = useState(false);

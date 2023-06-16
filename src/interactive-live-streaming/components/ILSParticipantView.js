@@ -8,21 +8,19 @@ function ILSParticipantView({ isPresenting }) {
     pinnedParticipants,
     activeSpeakerId,
     localParticipant,
-    localScreenShareOn,
-    presenterId,
   } = useMeeting();
 
   const participantIds = useMemo(() => {
     const pinnedParticipantId = [...pinnedParticipants.keys()].filter(
       (participantId) => {
-        return participantId != localParticipant.id;
+        return participantId !== localParticipant.id;
       }
     );
     const regularParticipantIds = [...participants.keys()].filter(
       (participantId) => {
         return (
           ![...pinnedParticipants.keys()].includes(participantId) &&
-          localParticipant.id != participantId
+          localParticipant.id !== participantId
         );
       }
     );
@@ -45,13 +43,7 @@ function ILSParticipantView({ isPresenting }) {
       }
     }
     return filteredParticipants;
-  }, [
-    participants,
-    activeSpeakerId,
-    pinnedParticipants,
-    presenterId,
-    localScreenShareOn,
-  ]);
+  }, [pinnedParticipants, participants, localParticipant.id, activeSpeakerId]);
 
   return (
     <MemoizedParticipantGrid

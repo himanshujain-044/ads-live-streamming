@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import Lottie from "lottie-react";
 import animationData from "../../../static/animations/wait_for_HLS_animation.json";
 import stoppedHLSSnimationData from "../../../static/animations/stopped_HLS_animation.json";
@@ -28,8 +28,8 @@ const PlayerViewer = () => {
   const playHls = useMemo(() => {
     return (
       hlsUrls.downstreamUrl &&
-      (hlsState == Constants.hlsEvents.HLS_PLAYABLE ||
-        hlsState == Constants.hlsEvents.HLS_STOPPING)
+      (hlsState === Constants.hlsEvents.HLS_PLAYABLE ||
+        hlsState === Constants.hlsEvents.HLS_STOPPING)
     );
   }, [hlsUrls, hlsState]);
 
@@ -70,7 +70,7 @@ const PlayerViewer = () => {
         // console.error("HLS is not supported");
       }
     }
-  }, [playHls]);
+  }, [hlsUrls.downstreamUrl, playHls]);
 
   return (
     <div

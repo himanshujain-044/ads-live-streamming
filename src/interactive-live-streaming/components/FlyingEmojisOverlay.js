@@ -10,7 +10,7 @@ const EMOJI_MAP = {
   heart: "❤️",
 };
 
-const FlyingEmojisOverlay = ({}) => {
+const FlyingEmojisOverlay = () => {
   const pubsubData = usePubSub("REACTION", {
     onMessageReceived: ({ message }) => {
       if (message) {
@@ -86,7 +86,7 @@ const FlyingEmojisOverlay = ({}) => {
     window.addEventListener("reaction_added", handleSendFlyingEmoji);
     return () =>
       window.removeEventListener("reaction_added", handleSendFlyingEmoji);
-  }, [handleDisplayFlyingEmoji]);
+  }, [handleDisplayFlyingEmoji, pubsubData]);
 
   // Remove all event listeners on unmount to prevent console warnings
   useEffect(

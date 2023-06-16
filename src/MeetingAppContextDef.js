@@ -53,7 +53,7 @@ export const MeetingAppProvider = ({ children }) => {
 
     useEffect(() => {
       raisedHandsParticipantsRef.current = raisedHandsParticipants;
-    }, [raisedHandsParticipants]);
+    }, []);
 
     const _handleRemoveOld = () => {
       const raisedHandsParticipants = [...raisedHandsParticipantsRef.current];

@@ -140,7 +140,7 @@ export default function SettingDialogueBox({
     if (boxRef.current && boxRef.current.offsetHeight !== boxHeight) {
       setBoxHeight(boxRef.current.offsetHeight);
     }
-  }, [windowWidth]);
+  }, [boxHeight, windowWidth]);
 
   const handleSetting = (event, n) => {
     setSetting(n);

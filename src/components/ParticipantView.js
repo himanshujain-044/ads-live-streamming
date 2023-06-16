@@ -70,35 +70,6 @@ export const CornerDisplayName = ({
   const [audioStats, setAudioStats] = useState({});
   const [videoStats, setVideoStats] = useState({});
 
-  const updateStats = async () => {
-    let stats = [];
-    let audioStats = [];
-    let videoStats = [];
-    if (isPresenting) {
-      stats = await getShareStats();
-    } else if (webcamStream) {
-      stats = await getVideoStats();
-    } else if (micStream) {
-      stats = await getAudioStats();
-    }
-
-    if (webcamStream || micStream || isPresenting) {
-      videoStats = isPresenting ? await getShareStats() : await getVideoStats();
-      audioStats = isPresenting ? [] : await getAudioStats();
-    }
-
-    // setScore(stats?.score);
-    let score = stats
-      ? stats.length > 0
-        ? getQualityScore(stats[0])
-        : 100
-      : 100;
-
-    setScore(score);
-    setAudioStats(audioStats);
-    setVideoStats(videoStats);
-  };
-
   const qualityStateArray = [
     { label: "", audio: "Audio", video: "Video" },
     {
@@ -198,6 +169,37 @@ export const CornerDisplayName = ({
   ];
 
   useEffect(() => {
+    const updateStats = async () => {
+      let stats = [];
+      let audioStats = [];
+      let videoStats = [];
+      if (isPresenting) {
+        stats = await getShareStats();
+      } else if (webcamStream) {
+        stats = await getVideoStats();
+      } else if (micStream) {
+        stats = await getAudioStats();
+      }
+
+      if (webcamStream || micStream || isPresenting) {
+        videoStats = isPresenting
+          ? await getShareStats()
+          : await getVideoStats();
+        audioStats = isPresenting ? [] : await getAudioStats();
+      }
+
+      // setScore(stats?.score);
+      let score = stats
+        ? stats.length > 0
+          ? getQualityScore(stats[0])
+          : 100
+        : 100;
+
+      setScore(score);
+      setAudioStats(audioStats);
+      setVideoStats(videoStats);
+    };
+
     if (webcamStream || micStream) {
       updateStats();
 
@@ -216,7 +218,14 @@ export const CornerDisplayName = ({
     return () => {
       if (statsIntervalIdRef.current) clearInterval(statsIntervalIdRef.current);
     };
-  }, [webcamStream, micStream]);
+  }, [
+    webcamStream,
+    micStream,
+    isPresenting,
+    getShareStats,
+    getVideoStats,
+    getAudioStats,
+  ]);
 
   return (
     <>

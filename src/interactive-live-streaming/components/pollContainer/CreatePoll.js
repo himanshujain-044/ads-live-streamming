@@ -337,7 +337,7 @@ const PollButtonPart = ({
 
     if (
       question.length >= 2 &&
-      /^[^-\s][a-zA-Z0-9_!@#$%^&*()`~.,<>{}[\]<>?_=+\-|;:\\'\"\/\s-]+$/i.test(
+      /^[^-\s][a-zA-Z0-9_!@#$%^&*()`~.,<>{}[\]<>?_=+\-|;:\\'\\"\\/\s-]+$/i.test(  //did some chnages in regex string
         question.trim()
       )
     ) {

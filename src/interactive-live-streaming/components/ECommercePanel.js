@@ -21,7 +21,7 @@ const ProductPart = () => {
             />
             <div id="carousel-1" class="carousel-item ">
               <div className="flex flex-1 items-center justify-center w-full h-full rounded bg-white">
-                <img src={product1Image} />
+                <img src={product1Image} alt="test" />
               </div>
               <div className="mt-5">
                 <p className="text-base font-semibold text-white text-justify">
@@ -49,7 +49,7 @@ const ProductPart = () => {
             />
             <div id="carousel-2" class="carousel-item">
               <div className="flex flex-1 items-center justify-center w-full h-full rounded bg-pink-250">
-                <img src={product2Image} />
+                <img src={product2Image} alt="test" />
               </div>
               <div className="mt-5">
                 <p className="text-base font-semibold text-white text-justify">
@@ -77,7 +77,7 @@ const ProductPart = () => {
             />
             <div id="carousel-3" class="carousel-item">
               <div className="flex flex-1 items-center justify-center w-full h-full rounded bg-green-750">
-                <img src={product3Image} />
+                <img src={product3Image} alt="test" />
               </div>
               <div className="mt-5">
                 <p className="text-base font-semibold text-white text-justify">

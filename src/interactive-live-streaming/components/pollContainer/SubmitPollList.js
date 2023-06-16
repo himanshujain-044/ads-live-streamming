@@ -92,23 +92,22 @@ const SubmitPollListItem = ({ poll }) => {
   const checkTimeOver = ({ timeout, createdAt }) =>
     !(new Date(createdAt).getTime() + timeout * 1000 > new Date().getTime());
 
-  const updateTimer = ({ timeout, createdAt }) => {
-    if (checkTimeOver({ timeout, createdAt })) {
-      setTimeLeft(0);
-      setIsTimerPollActive(false);
-      clearInterval(timerIntervalRef.current);
-    } else {
-      setTimeLeft(
-        (new Date(createdAt).getTime() +
-          timeout * 1000 -
-          new Date().getTime()) /
-          1000
-      );
-      setIsTimerPollActive(true);
-    }
-  };
-
   useEffect(() => {
+    const updateTimer = ({ timeout, createdAt }) => {
+      if (checkTimeOver({ timeout, createdAt })) {
+        setTimeLeft(0);
+        setIsTimerPollActive(false);
+        clearInterval(timerIntervalRef.current);
+      } else {
+        setTimeLeft(
+          (new Date(createdAt).getTime() +
+            timeout * 1000 -
+            new Date().getTime()) /
+            1000
+        );
+        setIsTimerPollActive(true);
+      }
+    };
     if (hasTimer) {
       updateTimer({ timeout, createdAt });
 
@@ -122,7 +121,7 @@ const SubmitPollListItem = ({ poll }) => {
     return () => {
       clearInterval(timerIntervalRef.current);
     };
-  }, []);
+  }, [createdAt, hasTimer, timeout]);
 
   const TooltipIconRender = ({ Icon, tooltipTitle }) => {
     const [tooltipShow, setTooltipShow] = useState(false);
