@@ -73,13 +73,9 @@ const PlayerViewer = () => {
   }, [hlsUrls.downstreamUrl, playHls]);
 
   return (
-    <div
-      className={`h-full w-full ${
-        playHls ? "bg-gray-800" : "bg-gray-750"
-      } relative overflow-hidden rounded-lg`}
-    >
+    <div>
       {playHls ? (
-        <div className="flex flex-col  items-center justify-center absolute top-0 left-0 bottom-0 right-0">
+        <div>
           <video
             ref={playerRef}
             id="hlsPlayer"
@@ -96,8 +92,8 @@ const PlayerViewer = () => {
           ></video>
         </div>
       ) : (
-        <div className="flex h-full w-full items-center justify-center">
-          <div className="flex flex-col items-center justify-center absolute top-0 left-0 bottom-0 right-0">
+        <div>
+          <div>
             <div
               style={{
                 height: lottieSize,
@@ -121,15 +117,13 @@ const PlayerViewer = () => {
                 }}
               />
             </div>
-            <p className="text-white text-center font-semibold text-2xl mt-0">
+            <p>
               {afterMeetingJoinedHLSState === "STOPPED"
                 ? "Host has stopped the live streaming."
                 : "Waiting for host to start live stream."}
             </p>
             {afterMeetingJoinedHLSState !== "STOPPED" && (
-              <p className="text-white text-center font-semibold text-2xl">
-                Meanwhile, take a few deep breaths.
-              </p>
+              <p>Meanwhile, take a few deep breaths.</p>
             )}
           </div>
         </div>

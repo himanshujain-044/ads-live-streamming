@@ -40,14 +40,12 @@ export const MobileIconButton = ({
     <>
       <div ref={btnRef} onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
         <div
-          className="p-0 rounded-lg"
           style={{
             transition: `all ${200 * 0.5}ms`,
             transitionTimingFunction: "linear",
           }}
         >
           <button
-            className="flex flex-col items-center justify-center"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -71,7 +69,6 @@ export const MobileIconButton = ({
             onClick={onClick}
           >
             <div
-              className="p-1 relative flex items-center justify-center rounded-lg"
               style={{
                 opacity: disabled ? disabledOpacity || 0.7 : 1,
                 transform: `scale(${mouseOver ? (mouseDown ? 0.95 : 1.1) : 1})`,
@@ -79,17 +76,10 @@ export const MobileIconButton = ({
                 transitionTimingFunction: "linear",
               }}
             >
-              {badge && (
-                <div class="inline-flex absolute -top-2 -right-3 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-black rounded-full">
-                  {badge}
-                </div>
-              )}
+              {badge && <div>{badge}</div>}
 
               {lottieOption ? (
-                <div
-                  className={`flex items-center justify-center p-[5px] rounded-[5px]`}
-                  style={{ backgroundColor: bgColor }}
-                >
+                <div style={{ backgroundColor: bgColor }}>
                   <div
                     style={{
                       height: iconSize,
@@ -120,29 +110,13 @@ export const MobileIconButton = ({
                 />
               )}
             </div>
-            <div>
-              {buttonText ? (
-                <p
-                  className={`${
-                    isFocused ? "text-white" : "text-gray-900"
-                  } text-sm`}
-                >
-                  {buttonText}
-                </p>
-              ) : null}
-            </div>
+            <div>{buttonText ? <p>{buttonText}</p> : null}</div>
           </button>
         </div>
       </div>
-      <div
-        style={{ zIndex: 999 }}
-        className={`${
-          tooltipShow ? "" : "hidden"
-        } overflow-hidden flex flex-col items-center justify-center pb-1`}
-        ref={tooltipRef}
-      >
-        <div className={"rounded-md p-1.5 bg-black "}>
-          <p className="text-base text-white ">{tooltipTitle || ""}</p>
+      <div style={{ zIndex: 999 }} ref={tooltipRef}>
+        <div>
+          <p>{tooltipTitle || ""}</p>
         </div>
       </div>
     </>

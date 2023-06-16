@@ -144,19 +144,13 @@ const SubmitPollListItem = ({ poll }) => {
           onMouseEnter={openTooltip}
           onMouseLeave={closeTooltip}
         >
-          <div className="ml-2 mr-2 cursor-pointer">
+          <div>
             <Icon />
           </div>
         </div>
-        <div
-          style={{ zIndex: 999 }}
-          className={`${
-            tooltipShow ? "" : "hidden"
-          } overflow-hidden flex flex-col items-center justify-center pb-1`}
-          ref={tooltipRef}
-        >
-          <div className={"rounded-md p-1.5 bg-black "}>
-            <p className="text-base text-white ">{tooltipTitle}</p>
+        <div style={{ zIndex: 999 }} ref={tooltipRef}>
+          <div>
+            <p>{tooltipTitle}</p>
           </div>
         </div>
       </>
@@ -165,15 +159,11 @@ const SubmitPollListItem = ({ poll }) => {
 
   return (
     <div style={{ borderBottom: "1px solid #70707033" }}>
-      <div className="xl:m-4 m-2 xl:my-[18px] lg:my-4 md:my-[14px] sm:my-3 my-[10px]">
-        <div className="flex items-center p-0 m-0">
-          <p className="text-sm text-gray-900 font-medium my-0">{`Poll ${index}`}</p>
-          <p className="mx-2 text-gray-900 font-medium my-0">&#x2022;</p>
-          <p
-            className={`mx-2 text-sm ${
-              isPollActive ? "text-orange-350" : "text-gray-900"
-            }  font-medium my-0`}
-          >
+      <div>
+        <div>
+          <p>{`Poll ${index}`}</p>
+          <p>&#x2022;</p>
+          <p>
             {isPollActive
               ? hasTimer
                 ? `Ends in ${secondsToMinutes(timeLeft)}`
@@ -181,9 +171,9 @@ const SubmitPollListItem = ({ poll }) => {
               : "Ended"}
           </p>
         </div>
-        <div className="mt-4">
-          <p className="text-base text-white font-semibold">{poll.question}</p>
-          <div className="mt-4">
+        <div>
+          <p>{poll.question}</p>
+          <div>
             {localSubmittedOption || !isPollActive
               ? poll.options.map((option) => {
                   const total = groupedSubmissionCount[option.optionId];
@@ -201,16 +191,14 @@ const SubmitPollListItem = ({ poll }) => {
                   const isCorrectOption = option.isCorrect;
 
                   return (
-                    <div className="flex mb-3">
-                      <div className="mt-0 w-full">
-                        <div className="flex items-center">
-                          <p className="text-[15px] text-white font-normal">
-                            {option.option}
-                          </p>
+                    <div>
+                      <div>
+                        <div>
+                          <p>{option.option}</p>
 
                           {isPollActive ? (
                             isOptionSubmittedByLocal ? (
-                              <div className="ml-2">
+                              <div>
                                 <AnswerSubmittedIcon />
                               </div>
                             ) : null
@@ -228,29 +216,12 @@ const SubmitPollListItem = ({ poll }) => {
                             ) : null
                           ) : null}
                         </div>
-                        <div className="flex items-center mt-0">
-                          <div className="h-[6px] rounded flex flex-1 bg-gray-700">
-                            <div
-                              className={`${
-                                hasCorrectAnswer && isPollActive
-                                  ? "bg-blue-500"
-                                  : hasCorrectAnswer && !isPollActive
-                                  ? isCorrectOption
-                                    ? "bg-purple-550"
-                                    : "bg-orange-350"
-                                  : maxSubmittedOptions.includes(
-                                      option.optionId
-                                    )
-                                  ? "bg-purple-550"
-                                  : "bg-orange-350"
-                              } rounded`}
-                              style={{ width: `${percentage}%` }}
-                            ></div>
+                        <div>
+                          <div>
+                            <div style={{ width: `${percentage}%` }}></div>
                           </div>
-                          <div className="ml-6 w-10 flex items-end justify-end">
-                            <p className="m-0 p-0 text-white">
-                              {`${Math.floor(percentage)}%`}
-                            </p>
+                          <div>
+                            <p>{`${Math.floor(percentage)}%`}</p>
                           </div>
                         </div>
                       </div>
@@ -259,7 +230,7 @@ const SubmitPollListItem = ({ poll }) => {
                 })
               : poll?.options.map((option) => {
                   return (
-                    <div className="flex mb-3 items-center">
+                    <div>
                       <Input
                         type="checkbox"
                         onClick={() => {
@@ -268,14 +239,10 @@ const SubmitPollListItem = ({ poll }) => {
                             { persist: true }
                           );
                         }}
-                        className="bg-transparent rounded-xl h-5 w-5 border-2 border-gray-300 focus:outline-none focus:border-gray-300 focus:ring-0"
                       />
 
-                      <div
-                        className="ml-3 w-full rounded bg-gray-700"
-                        style={{ padding: "8px 8px 8px" }}
-                      >
-                        <p className="text-white">{option.option}</p>
+                      <div style={{ padding: "8px 8px 8px" }}>
+                        <p>{option.option}</p>
                       </div>
                     </div>
                   );
@@ -290,11 +257,8 @@ const SubmitPollListItem = ({ poll }) => {
 const SubmitPollList = ({ panelHeight }) => {
   const { polls } = useMeetingAppContext();
   return (
-    <div
-      className="overflow-y-auto overflow-x-hidden"
-      style={{ height: panelHeight - 14 }}
-    >
-      <div className="flex flex-col flex-1 h-full">
+    <div style={{ height: panelHeight - 14 }}>
+      <div>
         {polls?.length > 0 ? (
           polls?.map((poll, index) => {
             return (
@@ -308,14 +272,9 @@ const SubmitPollList = ({ panelHeight }) => {
             );
           })
         ) : (
-          <div
-            className="flex flex-1 flex-col items-center justify-center"
-            style={{ marginTop: "-50px" }}
-          >
+          <div style={{ marginTop: "-50px" }}>
             <NoPollActiveIcon />
-            <p className="text-white text-base font-bold">
-              No Poll has been launched yet.
-            </p>
+            <p>No Poll has been launched yet.</p>
           </div>
         )}
       </div>

@@ -29,7 +29,6 @@ const SideBarTabView = ({
 
   return (
     <div
-      className="bg-gray-800"
       style={{
         height,
         width: sideBarContainerWidth,
@@ -41,7 +40,6 @@ const SideBarTabView = ({
     >
       <div>
         <div
-          className="bg-gray-750"
           style={{
             height: height,
             borderRadius: 10,
@@ -51,14 +49,13 @@ const SideBarTabView = ({
           <>
             {sideBarMode && (
               <div
-                className={`flex items-center justify-between`}
                 style={{
                   padding: panelHeaderPadding,
                   height: panelHeaderHeight - 1,
                   borderBottom: "1px solid #70707033",
                 }}
               >
-                <p className="text-base text-white font-bold">
+                <p>
                   {sideBarMode === "PARTICIPANTS"
                     ? `${
                         sideBarMode.charAt(0).toUpperCase() +
@@ -81,12 +78,8 @@ const SideBarTabView = ({
                     : sideBarMode.charAt(0).toUpperCase() +
                         sideBarMode.slice(1).toLowerCase() || ""}
                 </p>
-                <button
-                  className="text-white"
-                  onClick={handleClose}
-                  style={{ margin: 0, padding: 0 }}
-                >
-                  <XIcon className="h-5 w-5" />
+                <button onClick={handleClose} style={{ margin: 0, padding: 0 }}>
+                  <XIcon />
                 </button>
               </div>
             )}
@@ -157,12 +150,7 @@ export function SidebarConatiner({
   return sideBarMode ? (
     isTab || isMobile ? (
       <Transition appear show={sideBarMode ? true : false} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative"
-          style={{ zIndex: 9999 }}
-          onClose={handleClose}
-        >
+        <Dialog as="div" style={{ zIndex: 9999 }} onClose={handleClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -172,7 +160,7 @@ export function SidebarConatiner({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div />
           </Transition.Child>
 
           <Transition.Child
@@ -184,9 +172,9 @@ export function SidebarConatiner({
             leaveFrom="translate-y-0 opacity-100 scale-100"
             leaveTo="translate-y-full opacity-0 scale-95"
           >
-            <div className="fixed inset-0 overflow-y-hidden">
-              <div className="flex h-screen items-center justify-center text-center">
-                <Dialog.Panel className="w-screen transform overflow-hidden bg-gray-800 shadow-xl transition-all">
+            <div>
+              <div>
+                <Dialog.Panel>
                   <SideBarTabView
                     height={"100%"}
                     sideBarContainerWidth={"100%"}

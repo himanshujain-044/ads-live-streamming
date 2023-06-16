@@ -70,17 +70,6 @@ const OutlineIconTextButton = ({
     <>
       <div ref={btnRef} onMouseEnter={openTooltip} onMouseLeave={closeTooltip}>
         <button
-          className={`flex items-center justify-center  rounded-lg ${
-            bgColor ? `${bgColor}` : isFocused ? "bg-white" : "bg-gray-750"
-          } ${
-            mouseOver
-              ? "border-2 border-transparent border-solid"
-              : focusBGColor
-              ? `border-2 border-[${focusBGColor}] border-solid`
-              : bgColor
-              ? "border-2 border-transparent border-solid"
-              : "border-2 border-solid border-[#ffffff33]"
-          } md:m-2 m-1 cursor-pointer`}
           style={{
             transition: "all 200ms",
             transitionTimingFunction: "ease-in-out",
@@ -103,7 +92,6 @@ const OutlineIconTextButton = ({
           onClick={onClick}
         >
           <div
-            className="flex items-center justify-center p-1 m-1 rounded-lg overflow-hidden"
             style={{
               opacity: disabled ? 0.7 : 1,
               transform: `scale(${mouseOver ? (mouseDown ? 0.97 : 1.05) : 1})`,
@@ -113,12 +101,8 @@ const OutlineIconTextButton = ({
           >
             {buttonText ? (
               lottieOption ? (
-                <div className="flex items-center justify-center">
+                <div>
                   <div
-                    className={`lg:h-[${22 * (large ? 1 : 1)}px] w-[${
-                      (22 * (large ? 1 : 1) * lottieOption?.width) /
-                      lottieOption?.height
-                    }px]`}
                     style={{
                       height: iconSize,
                       width:
@@ -138,17 +122,7 @@ const OutlineIconTextButton = ({
                   </div>
                 </div>
               ) : (
-                <p
-                  className={`text-sm font-semibold leading-6 ${
-                    isFocused
-                      ? "text-[#1c1f2e]"
-                      : textColor
-                      ? textColor
-                      : "text-white"
-                  }`}
-                >
-                  {buttonText}
-                </p>
+                <p>{buttonText}</p>
               )
             ) : null}
           </div>
@@ -156,15 +130,9 @@ const OutlineIconTextButton = ({
           {typeof renderRightComponent === "function" && renderRightComponent()}
         </button>
       </div>
-      <div
-        style={{ zIndex: 999 }}
-        className={`${
-          tooltipShow ? "" : "hidden"
-        } overflow-hidden flex flex-col items-center justify-center pt-1`}
-        ref={tooltipRef}
-      >
-        <div className={"rounded-md p-1.5 bg-black "}>
-          <p className="text-base text-white ">{tooltipTitle || ""}</p>
+      <div style={{ zIndex: 999 }} ref={tooltipRef}>
+        <div>
+          <p>{tooltipTitle || ""}</p>
         </div>
       </div>
     </>

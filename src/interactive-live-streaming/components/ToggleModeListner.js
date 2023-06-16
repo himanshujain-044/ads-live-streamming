@@ -23,19 +23,11 @@ const ToggleModeContainer = ({ participantId, participantMode }) => {
 
   return (
     !isLocal && (
-      <Popover className="relative">
+      <Popover>
         {({ open, close }) => (
           <>
-            <Popover.Button
-              className={`
-            ${open ? "" : "text-opacity-90"}
-            group inline-flex items-center  m-1 p-1 text-base font-medium rounded-full hover:bg-gray-600 text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
-            >
-              <DotsVerticalIcon
-                className={`${open ? "" : "text-opacity-70"}
-              h-5 w-5 text-white transition duration-150 ease-in-out group-hover:text-opacity-80`}
-                aria-hidden="true"
-              />
+            <Popover.Button>
+              <DotsVerticalIcon aria-hidden="true" />
             </Popover.Button>
 
             <Transition
@@ -47,13 +39,7 @@ const ToggleModeContainer = ({ participantId, participantMode }) => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel
-                className={`absolute ${
-                  participantMode === Constants.modes.CONFERENCE
-                    ? "w-48"
-                    : "w-40"
-                } left-full z-10 mt-1 -translate-x-full shadow-xl transform py-2.5  sm:px-0  bg-gray-750 rounded-sm hover:cursor-pointer`}
-              >
+              <Popover.Panel>
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
@@ -67,10 +53,9 @@ const ToggleModeContainer = ({ participantId, participantMode }) => {
                     );
                     close();
                   }}
-                  className=""
                 >
-                  <div className="flex flex-row hover:bg-customGray-350 px-3 py-0.5">
-                    <div className="flex items-center justify-center">
+                  <div>
+                    <div>
                       <ParticipantAddHostIcon
                         fill={
                           participantMode === Constants.modes.CONFERENCE

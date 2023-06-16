@@ -2,7 +2,6 @@ import * as React from "react";
 
 const ScreenShareIcon = (props) => (
   <svg
-    className="MuiSvgIcon-root "
     viewBox="0 0 24 24"
     aria-hidden="true"
     style={{

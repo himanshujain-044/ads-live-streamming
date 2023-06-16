@@ -173,10 +173,10 @@ export function ILSBottomBar({
           renderRightComponent={() => {
             return (
               <>
-                <Popover className="relative">
+                <Popover>
                   {({ close }) => (
                     <>
-                      <Popover.Button className="flex items-center justify-center mt-1 mr-1">
+                      <Popover.Button>
                         <div
                           ref={btnRef}
                           onMouseEnter={openTooltip}
@@ -188,7 +188,6 @@ export function ILSBottomBar({
                             }}
                           >
                             <ChevronDownIcon
-                              className="h-4 w-4"
                               style={{
                                 color: mMeeting.localMicOn ? "white" : "black",
                               }}
@@ -205,28 +204,17 @@ export function ILSBottomBar({
                         leaveFrom="opacity-100 translate-y-0"
                         leaveTo="opacity-0 translate-y-1"
                       >
-                        <Popover.Panel className="absolute left-1/2 bottom-full z-10 mt-3 w-72 -translate-x-1/2 transform px-4 sm:px-0 pb-4">
-                          <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                            <div className={" bg-gray-750 py-1"}>
+                        <Popover.Panel>
+                          <div>
+                            <div>
                               <div>
-                                <div className="flex items-center p-3 pb-0">
-                                  <p className="ml-3 text-sm text-gray-900">
-                                    {"MICROPHONE"}
-                                  </p>
+                                <div>
+                                  <p>{"MICROPHONE"}</p>
                                 </div>
-                                <div className="flex flex-col">
+                                <div>
                                   {mics.map(({ deviceId, label }, index) => (
-                                    <div
-                                      className={`px-3 py-1 my-1 pl-6 text-white text-left ${
-                                        deviceId === selectMicDeviceId &&
-                                        "bg-gray-150"
-                                      }`}
-                                    >
+                                    <div>
                                       <button
-                                        className={`flex flex-1 w-full ${
-                                          deviceId === selectMicDeviceId &&
-                                          "bg-gray-150"
-                                        }`}
                                         key={`mics_${deviceId}`}
                                         onClick={() => {
                                           setSelectMicDeviceId(deviceId);
@@ -247,17 +235,9 @@ export function ILSBottomBar({
                     </>
                   )}
                 </Popover>
-                <div
-                  style={{ zIndex: 999 }}
-                  className={`${
-                    tooltipShow ? "" : "hidden"
-                  } overflow-hidden flex flex-col items-center justify-center pb-4`}
-                  ref={tooltipRef}
-                >
-                  <div className={"rounded-md p-1.5 bg-black "}>
-                    <p className="text-base text-white ">
-                      {"Change microphone"}
-                    </p>
+                <div style={{ zIndex: 999 }} ref={tooltipRef}>
+                  <div>
+                    <p>{"Change microphone"}</p>
                   </div>
                 </div>
               </>
@@ -320,10 +300,10 @@ export function ILSBottomBar({
           renderRightComponent={() => {
             return (
               <>
-                <Popover className="relative">
+                <Popover>
                   {({ close }) => (
                     <>
-                      <Popover.Button className="flex items-center justify-center mt-1 mr-1">
+                      <Popover.Button>
                         <div
                           ref={btnRef}
                           onMouseEnter={openTooltip}
@@ -335,7 +315,6 @@ export function ILSBottomBar({
                             }}
                           >
                             <ChevronDownIcon
-                              className="h-4 w-4"
                               style={{
                                 color: localWebcamOn ? "white" : "black",
                               }}
@@ -352,28 +331,17 @@ export function ILSBottomBar({
                         leaveFrom="opacity-100 translate-y-0"
                         leaveTo="opacity-0 translate-y-1"
                       >
-                        <Popover.Panel className="absolute left-1/2 bottom-full z-10 mt-3 w-72 -translate-x-1/2 transform px-4 sm:px-0 pb-4">
-                          <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                            <div className={" bg-gray-750 py-1"}>
+                        <Popover.Panel>
+                          <div>
+                            <div>
                               <div>
-                                <div className="flex items-center p-3 pb-0">
-                                  <p className="ml-3 text-sm text-gray-900">
-                                    {"WEBCAM"}
-                                  </p>
+                                <div>
+                                  <p>{"WEBCAM"}</p>
                                 </div>
-                                <div className="flex flex-col">
+                                <div>
                                   {webcams.map(({ deviceId, label }, index) => (
-                                    <div
-                                      className={`px-3 py-1 my-1 pl-6 text-white text-left ${
-                                        deviceId === selectWebcamDeviceId &&
-                                        "bg-gray-150"
-                                      }`}
-                                    >
+                                    <div>
                                       <button
-                                        className={`flex flex-1 w-full ${
-                                          deviceId === selectWebcamDeviceId &&
-                                          "bg-gray-150"
-                                        }`}
                                         key={`output_webcams_${deviceId}`}
                                         onClick={async () => {
                                           setSelectWebcamDeviceId(deviceId);
@@ -402,15 +370,9 @@ export function ILSBottomBar({
                     </>
                   )}
                 </Popover>
-                <div
-                  style={{ zIndex: 999 }}
-                  className={`${
-                    tooltipShow ? "" : "hidden"
-                  } overflow-hidden flex flex-col items-center justify-center pb-4`}
-                  ref={tooltipRef}
-                >
-                  <div className={"rounded-md p-1.5 bg-black "}>
-                    <p className="text-base text-white ">{"Change webcam"}</p>
+                <div style={{ zIndex: 999 }} ref={tooltipRef}>
+                  <div>
+                    <p>{"Change webcam"}</p>
                   </div>
                 </div>
               </>
@@ -720,7 +682,7 @@ export function ILSBottomBar({
 
     return (
       <div>
-        <Popover className="relative">
+        <Popover>
           {({ open }) => (
             <>
               <Popover.Button>
@@ -742,19 +704,18 @@ export function ILSBottomBar({
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1"
               >
-                <Popover.Panel className="absolute left-1/2 bottom-full z-10 mt-3  -translate-x-1/2 transform px-4 sm:px-0 ">
-                  <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                    <div className="px-1 py-2 bg-white rounded-md flex">
+                <Popover.Panel>
+                  <div>
+                    <div>
                       {emojiArray.map(({ emoji, emojiName }) => (
                         <button
                           key={`reaction-${emojiName}`}
-                          className="mx-2"
                           onClick={() => {
                             sendEmoji(emojiName);
                             publish(emojiName);
                           }}
                         >
-                          <p className="text-3xl">{emoji}</p>
+                          <p>{emoji}</p>
                         </button>
                       ))}
                     </div>
@@ -800,11 +761,10 @@ export function ILSBottomBar({
     const { meetingId } = useMeeting();
     const [isCopied, setIsCopied] = useState(false);
     return (
-      <div className="flex items-center justify-center lg:ml-0 ml-4 mt-4 xl:mt-0">
-        <div className="flex border-2 border-gray-850 p-2 rounded-md items-center justify-center">
-          <h1 className="text-white text-base ">{meetingId}</h1>
+      <div>
+        <div>
+          <h1>{meetingId}</h1>
           <button
-            className="ml-2"
             onClick={() => {
               navigator.clipboard.writeText(meetingId);
               setIsCopied(true);
@@ -813,11 +773,7 @@ export function ILSBottomBar({
               }, 3000);
             }}
           >
-            {isCopied ? (
-              <CheckIcon className="h-5 w-5 text-green-400" />
-            ) : (
-              <ClipboardIcon className="h-5 w-5 text-white" />
-            )}
+            {isCopied ? <CheckIcon /> : <ClipboardIcon />}
           </button>
         </div>
       </div>
@@ -874,10 +830,7 @@ export function ILSBottomBar({
   }
 
   return isMobile || isTab ? (
-    <div
-      className="flex items-center justify-center"
-      style={{ height: bottomBarHeight }}
-    >
+    <div style={{ height: bottomBarHeight }}>
       <LeaveBTN />
       {meetingMode === Constants.modes.CONFERENCE && (
         <>
@@ -889,12 +842,7 @@ export function ILSBottomBar({
       <OutlinedButton Icon={DotsHorizontalIcon} onClick={handleClickFAB} />
 
       <Transition appear show={Boolean(open)} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative"
-          style={{ zIndex: 9999 }}
-          onClose={handleCloseFAB}
-        >
+        <Dialog as="div" style={{ zIndex: 9999 }} onClose={handleCloseFAB}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -904,7 +852,7 @@ export function ILSBottomBar({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div />
           </Transition.Child>
 
           <Transition.Child
@@ -916,20 +864,14 @@ export function ILSBottomBar({
             leaveFrom="translate-y-0 opacity-100 scale-100"
             leaveTo="translate-y-full opacity-0 scale-95"
           >
-            <div className="fixed inset-0 overflow-y-hidden">
-              <div className="flex h-full items-end justify-end text-center">
-                <Dialog.Panel className="w-screen transform overflow-hidden bg-gray-800 shadow-xl transition-all">
-                  <div className="grid container bg-gray-800 py-6">
-                    <div className="grid grid-cols-12 gap-2">
+            <div>
+              <div>
+                <Dialog.Panel>
+                  <div>
+                    <div>
                       {otherFeatures.map(({ icon }) => {
                         return (
-                          <div
-                            className={`grid items-center justify-center ${
-                              icon === BottomBarButtonTypes.MEETING_ID_COPY
-                                ? "col-span-7 sm:col-span-5 md:col-span-3"
-                                : "col-span-4 sm:col-span-3 md:col-span-2"
-                            }`}
-                          >
+                          <div>
                             {icon === BottomBarButtonTypes.RAISE_HAND ? (
                               <RaiseHandBTN isMobile={isMobile} isTab={isTab} />
                             ) : icon === BottomBarButtonTypes.SCREEN_SHARE ? (
@@ -1015,10 +957,10 @@ export function ILSBottomBar({
       </SwipeableDrawer> */}
     </div>
   ) : (
-    <div className="md:flex lg:px-2 xl:px-6 pb-2 px-2 hidden">
+    <div>
       <MeetingIdCopyBTN />
 
-      <div className="flex flex-1 items-center justify-center" ref={tollTipEl}>
+      <div ref={tollTipEl}>
         {meetingMode === Constants.modes.CONFERENCE && (
           <ScreenShareBTN isMobile={isMobile} isTab={isTab} />
         )}
@@ -1034,7 +976,7 @@ export function ILSBottomBar({
         )}
         <LeaveBTN />
       </div>
-      <div className="flex items-center justify-center">
+      <div>
         {meetingMode === Constants.modes.VIEWER && (
           <ECommerceBTN isMobile={isMobile} isTab={isTab} />
         )}

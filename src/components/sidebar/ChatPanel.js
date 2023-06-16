@@ -10,26 +10,19 @@ const ChatMessage = ({ senderId, senderName, text, timestamp }) => {
 
   return (
     <div
-      className={`flex ${localSender ? "justify-end" : "justify-start"} mt-4`}
       style={{
         maxWidth: "100%",
       }}
     >
-      <div
-        className={`flex ${
-          localSender ? "items-end" : "items-start"
-        } flex-col py-1 px-2 rounded-md bg-gray-700`}
-      >
+      <div>
         <p style={{ color: "#ffffff80" }}>
           {localSender ? "You" : nameTructed(senderName, 15)}
         </p>
         <div>
-          <p className="inline-block whitespace-pre-wrap break-words text-right text-white">
-            {text}
-          </p>
+          <p>{text}</p>
         </div>
-        <div className="mt-1">
-          <p className="text-xs italic" style={{ color: "#ffffff80" }}>
+        <div>
+          <p style={{ color: "#ffffff80" }}>
             {formatAMPM(new Date(timestamp))}
           </p>
         </div>
@@ -44,16 +37,12 @@ const ChatInput = ({ inputHeight }) => {
   const input = useRef();
 
   return (
-    <div
-      className="w-full flex items-center px-2"
-      style={{ height: inputHeight }}
-    >
-      <div class="relative  w-full">
-        <span class="absolute inset-y-0 right-0 flex mr-2 rotate-90 ">
+    <div style={{ height: inputHeight }}>
+      <div>
+        <span>
           <button
             disabled={message.length < 2}
             type="submit"
-            className="p-1 focus:outline-none focus:shadow-outline"
             onClick={() => {
               const messageText = message.trim();
               if (messageText.length > 0) {
@@ -65,16 +54,11 @@ const ChatInput = ({ inputHeight }) => {
               }
             }}
           >
-            <PaperAirplaneIcon
-              className={`w-6 h-6 ${
-                message.length < 2 ? "text-gray-500 " : "text-white"
-              }`}
-            />
+            <PaperAirplaneIcon />
           </button>
         </span>
         <input
           type="text"
-          className="py-4 text-base text-white bg-gray-750 rounded pr-10 focus:outline-none w-full"
           placeholder="Write your message"
           autocomplete="off"
           ref={input}
@@ -131,7 +115,7 @@ const ChatMessages = ({ listHeight }) => {
 
   return messages ? (
     <div ref={listRef} style={{ overflowY: "scroll", height: listHeight }}>
-      <div className="p-4">
+      <div>
         {messages.map((msg, i) => {
           const { senderId, senderName, message, timestamp } = msg;
           return (

@@ -16,31 +16,26 @@ function ParticipantListItem({ participantId, raisedHand }) {
   const isHls = useIsHls();
 
   return (
-    <div className="mt-2 m-2 p-2 bg-gray-700 rounded-lg mb-0">
-      <div className="flex flex-1 items-center justify-center relative">
+    <div>
+      <div>
         <div
           style={{
             color: "#212032",
             backgroundColor: "#757575",
           }}
-          className="h-10 w-10 text-lg mt-0 rounded overflow-hidden flex relative items-center justify-center"
         >
           {displayName?.charAt(0).toUpperCase()}
         </div>
-        <div className="ml-2 mr-1 flex flex-1">
-          <p className="text-base text-white overflow-hidden whitespace-pre-wrap overflow-ellipsis">
-            {isLocal ? "You" : nameTructed(displayName, 15)}
-          </p>
+        <div>
+          <p>{isLocal ? "You" : nameTructed(displayName, 15)}</p>
         </div>
         {raisedHand && (
-          <div className="flex items-center justify-center m-1 p-1">
+          <div>
             <RaiseHand fillcolor={"#fff"} />
           </div>
         )}
-        <div className="m-1 p-1">{micOn ? <MicOnIcon /> : <MicOffIcon />}</div>
-        <div className="m-1 p-1">
-          {webcamOn ? <VideoCamOnIcon /> : <VideoCamOffIcon />}
-        </div>
+        <div>{micOn ? <MicOnIcon /> : <MicOffIcon />}</div>
+        <div>{webcamOn ? <VideoCamOnIcon /> : <VideoCamOffIcon />}</div>
         {isHls && (
           <ToggleModeContainer
             participantId={participantId}
@@ -98,14 +93,8 @@ export function ParticipantPanel({ panelHeight }) {
   );
 
   return (
-    <div
-      className={`flex w-full flex-col bg-gray-750 overflow-y-auto `}
-      style={{ height: panelHeight }}
-    >
-      <div
-        className="flex flex-col flex-1"
-        style={{ height: panelHeight - 100 }}
-      >
+    <div style={{ height: panelHeight }}>
+      <div style={{ height: panelHeight - 100 }}>
         {[...participants.keys()].map((participantId, index) => {
           const { raisedHand, participantId: peerId } = part[index];
           return (

@@ -89,17 +89,6 @@ export const OutlinedButton = ({
         }}
       >
         <div
-          className={`flex items-center justify-center  rounded-lg ${
-            bgColor ? `${bgColor}` : isFocused ? "bg-white" : "bg-gray-750"
-          } ${
-            mouseOver
-              ? "border-2 border-transparent border-solid"
-              : borderColor
-              ? `border-2 border-[${borderColor}] border-solid`
-              : bgColor
-              ? "border-2 border-transparent border-solid"
-              : "border-2 border-solid border-[#ffffff33]"
-          } md:m-2 m-1`}
           style={{
             transition: "all 200ms",
             transitionTimingFunction: "ease-in-out",
@@ -107,9 +96,6 @@ export const OutlinedButton = ({
           }}
         >
           <button
-            className={`${
-              disabled ? "cursor-default" : "cursor-pointer"
-            } flex items-center justify-center`}
             id={btnID}
             onMouseEnter={() => {
               setMouseOver(true);
@@ -127,7 +113,6 @@ export const OutlinedButton = ({
             onClick={onClick}
           >
             <div
-              className="flex items-center justify-center p-1 m-1 rounded-lg"
               style={{
                 opacity: disabled ? disabledOpacity || 0.7 : 1,
                 transform: `scale(${mouseOver ? (mouseDown ? 0.95 : 1.1) : 1})`,
@@ -137,7 +122,7 @@ export const OutlinedButton = ({
             >
               {Icon &&
                 (lottieOption ? (
-                  <div className={`flex items-center justify-center`}>
+                  <div>
                     <div
                       style={{
                         height: iconSize,
@@ -178,36 +163,18 @@ export const OutlinedButton = ({
                           : "#fff"
                       }
                     />
-                    {badge && (
-                      <p
-                        className={`${
-                          isFocused ? "text-black" : "text-white"
-                        } text-base ml-2`}
-                      >
-                        {badge}
-                      </p>
-                    )}
+                    {badge && <p>{badge}</p>}
                   </>
                 ))}
             </div>
-            {buttonText ? (
-              <p className="text-sm text-white font-semibold mr-2 text-center">
-                {buttonText}
-              </p>
-            ) : null}
+            {buttonText ? <p>{buttonText}</p> : null}
           </button>
           {typeof renderRightComponent === "function" && renderRightComponent()}
         </div>
       </div>
-      <div
-        style={{ zIndex: 999 }}
-        className={`${
-          tooltipShow && (mouseOver || mouseDown) ? "" : "hidden"
-        } overflow-hidden flex flex-col items-center justify-center`}
-        ref={tooltipRef}
-      >
-        <div className={"rounded-md p-1.5 bg-black "}>
-          <p className="text-base text-white ">{tooltip || ""}</p>
+      <div style={{ zIndex: 999 }} ref={tooltipRef}>
+        <div>
+          <p>{tooltip || ""}</p>
         </div>
       </div>
     </>

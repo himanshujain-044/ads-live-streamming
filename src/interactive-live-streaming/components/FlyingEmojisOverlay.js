@@ -45,8 +45,8 @@ const FlyingEmojisOverlay = () => {
 
       const node = document.createElement("div");
       node.appendChild(document.createTextNode(EMOJI_MAP[emoji]));
-      node.className =
-        Math.random() * 1 > 0.5 ? "emoji wiggle-1" : "emoji wiggle-2";
+      // node.className =
+      //   Math.random() * 1 > 0.5 ? "emoji wiggle-1" : "emoji wiggle-2";
       node.style.transform = `rotate(${-30 + Math.random() * 60}deg)`;
       node.style.left = `${Math.random() * 100}%`;
       node.src = "";
@@ -97,7 +97,7 @@ const FlyingEmojisOverlay = () => {
     [handleRemoveFlyingEmoji]
   );
 
-  return <div className="flying-emojis" ref={overlayRef}></div>;
+  return <div  ref={overlayRef}></div>;
 };
 
 export default FlyingEmojisOverlay;

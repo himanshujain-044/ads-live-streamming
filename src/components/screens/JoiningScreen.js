@@ -315,9 +315,6 @@ export function JoiningScreen({
             onMouseEnter={openTooltip}
             onMouseLeave={closeTooltip}
             onClick={onClick}
-            className={`rounded-full min-w-auto w-11 h-11 flex items-center justify-center ${
-              onState ? "bg-white" : "bg-red-650 text-white"
-            }`}
             disabled={meetingMode === Constants.modes.VIEWER}
           >
             {onState ? (
@@ -327,15 +324,9 @@ export function JoiningScreen({
             )}
           </button>
         </div>
-        <div
-          style={{ zIndex: 999 }}
-          className={`${
-            tooltipShow ? "" : "hidden"
-          } overflow-hidden flex flex-col items-center justify-center pb-1.5`}
-          ref={tooltipRef}
-        >
-          <div className={"rounded-md p-1.5 bg-black "}>
-            <p className="text-base text-white ">
+        <div style={{ zIndex: 999 }} ref={tooltipRef}>
+          <div>
+            <p>
               {onState
                 ? `Turn off ${mic ? "mic" : "webcam"}`
                 : `Turn on ${mic ? "mic" : "webcam"}`}
@@ -347,15 +338,15 @@ export function JoiningScreen({
   };
 
   return (
-    <div className="fixed inset-0">
-      <div className="overflow-y-auto flex flex-col flex-1 h-screen bg-gray-800">
-        <div className="flex flex-1 flex-col md:flex-row items-center justify-center md:m-[72px] m-16">
-          <div className="container grid  md:grid-flow-col grid-flow-row ">
-            <div className="grid grid-cols-12">
-              <div className="md:col-span-7 2xl:col-span-6 col-span-12">
-                <div className="flex items-center justify-center p-1.5 sm:p-4 lg:p-6">
-                  <div className="relative w-full md:pl-4 sm:pl-10 pl-5  md:pr-4 sm:pr-10 pr-5">
-                    <div className="w-full relative" style={{ height: "45vh" }}>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
                       <video
                         autoPlay
                         playsInline
@@ -365,16 +356,13 @@ export function JoiningScreen({
                         style={{
                           backgroundColor: "#1c1c1c",
                         }}
-                        className={
-                          "rounded-[10px] h-full w-full object-cover flex items-center justify-center flip"
-                        }
                       />
 
                       {!isMobile ? (
                         <>
-                          <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
+                          <div>
                             {!webcamOn ? (
-                              <p className="text-xl xl:text-lg 2xl:text-xl text-white">
+                              <p>
                                 {meetingMode === Constants.modes.VIEWER
                                   ? "You are not permitted to use your microphone and camera."
                                   : "The camera is off"}
@@ -404,8 +392,8 @@ export function JoiningScreen({
                       ) : null}
 
                       {meetingMode === Constants.modes.CONFERENCE && (
-                        <div className="absolute xl:bottom-6 bottom-4 left-0 right-0">
-                          <div className="container grid grid-flow-col space-x-4 items-center justify-center md:-m-2">
+                        <div>
+                          <div>
                             <ButtonWithTooltip
                               onClick={_handleToggleMic}
                               onState={micOn}
@@ -427,27 +415,20 @@ export function JoiningScreen({
 
                     {!isMobile &&
                       meetingMode === Constants.modes.CONFERENCE && (
-                        <div
-                          className="m-4 absolute md:left-12 lg:left-24 xl:left-44 md:right-12 lg:right-24 xl:right-44 rounded cursor-pointer bg-gray-700"
-                          onClick={(e) => {
-                            handleClickOpen();
-                          }}
-                        >
-                          <div className="flex flex-row items-center justify-center m-1">
-                            <button className="text-white">
-                              <CheckCircleIcon className="h-5 w-5" />
+                        <div>
+                          <div>
+                            <button>
+                              <CheckCircleIcon />
                             </button>
-                            <p className="text-base text-white ml-1">
-                              Check your audio and video
-                            </p>
+                            <p>Check your audio and video</p>
                           </div>
                         </div>
                       )}
                   </div>
                 </div>
               </div>
-              <div className="md:col-span-5 2xl:col-span-6 col-span-12 md:relative">
-                <div className="flex flex-1 flex-col items-center justify-center xl:m-16 lg:m-6 md:mt-9 lg:mt-14 xl:mt-20 mt-3 md:absolute md:left-0 md:right-0 md:top-0 md:bottom-0">
+              <div>
+                <div>
                   <MeetingDetailsScreen
                     participantName={participantName}
                     setParticipantName={setParticipantName}

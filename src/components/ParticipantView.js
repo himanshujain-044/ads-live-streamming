@@ -230,7 +230,6 @@ export const CornerDisplayName = ({
   return (
     <>
       <div
-        className="absolute bottom-2 left-2 rounded-md flex items-center justify-center p-2"
         style={{
           backgroundColor: "#00000066",
           transition: "all 200ms",
@@ -244,7 +243,7 @@ export const CornerDisplayName = ({
           <SpeakerIcon />
         ) : null}
 
-        <p className="text-sm text-white ml-0.5">
+        <p>
           {isPresenting
             ? isLocal
               ? `You are presenting`
@@ -261,13 +260,11 @@ export const CornerDisplayName = ({
             onClick={(e) => {
               e.stopPropagation();
             }}
-            className="absolute top-2 right-2 rounded-md  p-2 cursor-pointer "
           >
-            <Popover className="relative ">
+            <Popover>
               {({ close }) => (
                 <>
                   <Popover.Button
-                    className={`absolute right-0 top-0 rounded-md flex items-center justify-center p-1.5 cursor-pointer`}
                     style={{
                       backgroundColor:
                         score > 7
@@ -307,7 +304,7 @@ export const CornerDisplayName = ({
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel style={{ zIndex: 999 }} className="absolute">
+                    <Popover.Panel style={{ zIndex: 999 }}>
                       {ReactDOM.createPortal(
                         <div
                           ref={setStatsBoxWidthRef}
@@ -321,14 +318,9 @@ export const CornerDisplayName = ({
                                 ? 12
                                 : coords?.left - statsBoxWidth,
                           }}
-                          className={`absolute`}
                         >
-                          <div
-                            ref={setStatsBoxHeightRef}
-                            className="bg-gray-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 "
-                          >
+                          <div ref={setStatsBoxHeightRef}>
                             <div
-                              className={`p-[9px] flex items-center justify-between rounded-t-lg`}
                               style={{
                                 backgroundColor:
                                   score > 7
@@ -338,7 +330,7 @@ export const CornerDisplayName = ({
                                     : "#FF5D5D",
                               }}
                             >
-                              <p className="text-sm text-white font-semibold">{`Quality Score : ${
+                              <p>{`Quality Score : ${
                                 score > 7
                                   ? "Good"
                                   : score > 4
@@ -347,24 +339,19 @@ export const CornerDisplayName = ({
                               }`}</p>
 
                               <button
-                                className="cursor-pointer text-white hover:bg-[#ffffff33] rounded-full px-1 text-center"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   close();
                                 }}
                               >
-                                <XIcon
-                                  className="text-white"
-                                  style={{ height: 16, width: 16 }}
-                                />
+                                <XIcon style={{ height: 16, width: 16 }} />
                               </button>
                             </div>
-                            <div className="flex">
-                              <div className="flex flex-col">
+                            <div>
+                              <div>
                                 {qualityStateArray.map((item, index) => {
                                   return (
                                     <div
-                                      className="flex"
                                       style={{
                                         borderBottom:
                                           index === qualityStateArray.length - 1
@@ -372,32 +359,22 @@ export const CornerDisplayName = ({
                                             : `1px solid #ffffff33`,
                                       }}
                                     >
-                                      <div className="flex flex-1 items-center w-[120px]">
-                                        {index !== 0 && (
-                                          <p className="text-xs text-white my-[6px] ml-2">
-                                            {item.label}
-                                          </p>
-                                        )}
+                                      <div>
+                                        {index !== 0 && <p>{item.label}</p>}
                                       </div>
                                       <div
-                                        className="flex flex-1 items-center justify-center"
                                         style={{
                                           borderLeft: `1px solid #ffffff33`,
                                         }}
                                       >
-                                        <p className="text-xs text-white my-[6px] w-[80px] text-center">
-                                          {item.audio}
-                                        </p>
+                                        <p>{item.audio}</p>
                                       </div>
                                       <div
-                                        className="flex flex-1 items-center justify-center"
                                         style={{
                                           borderLeft: `1px solid #ffffff33`,
                                         }}
                                       >
-                                        <p className="text-xs text-white my-[6px] w-[80px] text-center">
-                                          {item.video}
-                                        </p>
+                                        <p>{item.video}</p>
                                       </div>
                                     </div>
                                   );
@@ -466,7 +443,6 @@ export function ParticipantView({ participantId }) {
       onMouseLeave={() => {
         setMouseOver(false);
       }}
-      className={`h-full w-full  bg-gray-750 relative overflow-hidden rounded-lg video-cover`}
     >
       <audio ref={micRef} autoPlay muted={isLocal} />
       {webcamOn ? (
@@ -490,13 +466,9 @@ export function ParticipantView({ participantId }) {
           }}
         />
       ) : (
-        <div className="h-full w-full flex items-center justify-center">
-          <div
-            className={`z-10 flex items-center justify-center rounded-full bg-gray-800 2xl:h-[92px] h-[52px] 2xl:w-[92px] w-[52px]`}
-          >
-            <p className="text-2xl text-white">
-              {String(displayName).charAt(0).toUpperCase()}
-            </p>
+        <div>
+          <div>
+            <p>{String(displayName).charAt(0).toUpperCase()}</p>
           </div>
         </div>
       )}

@@ -53,7 +53,7 @@ const AudioAnalyser = ({ audioTrack }) => {
   }, [audioTrack]);
 
   return (
-    <div className="relative w-20 h-[100px]">
+    <div>
       {[
         {
           borderBottomLeftRadius: 0,
@@ -83,11 +83,7 @@ const AudioAnalyser = ({ audioTrack }) => {
           },
           i
         ) => (
-          <div
-            key={`audio_analyzer_i_${i}`}
-            className={`h-1/2 flex justify-evenly left-0 right-0 absolute`}
-            style={{ alignItems, top }}
-          >
+          <div key={`audio_analyzer_i_${i}`} style={{ alignItems, top }}>
             {[40, 70, 100, 100, 70, 40].map((height, j) => (
               <div
                 key={`audio_analyzer_j_${j}`}
@@ -153,7 +149,7 @@ export default function SettingDialogueBox({
   return (
     <>
       <Transition appear show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={handleClose}>
+        <Dialog as="div" onClose={handleClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -163,11 +159,11 @@ export default function SettingDialogueBox({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div>
+            <div>
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -177,28 +173,22 @@ export default function SettingDialogueBox({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded bg-gray-750 p-6 text-center align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h5"
-                    className="text-lg font-medium leading-6 text-white"
-                  >
-                    Settings
-                  </Dialog.Title>
-                  <div className="flex flex-1  flex-col overflow-hidden bg-gray-750  xl:p-[2px] lg:p-[5px] p-[2px]">
-                    <div className="flex items-center justify-center">
-                      <div className="absolute top-2 right-2 focus-visible:border-none">
+                <Dialog.Panel>
+                  <Dialog.Title as="h5">Settings</Dialog.Title>
+                  <div>
+                    <div>
+                      <div>
                         <button
                           onClick={() => {
                             handleClose();
                           }}
-                          className="focus-visible:border-none"
                         >
-                          <XIcon className="h-6 w-6 text-white" />
+                          <XIcon />
                         </button>
                       </div>
                     </div>
-                    <div className="flex flex-1 flex-col items-center justify-center">
-                      <div className="mt-10">
+                    <div>
+                      <div>
                         <div>
                           {[
                             { value: "audio", label: "Audio" },
@@ -206,11 +196,6 @@ export default function SettingDialogueBox({
                           ].map(({ value, label }) =>
                             label === "Audio" || label === "Video" ? (
                               <button
-                                className={`inline-flex items-center justify-center px-4 py-2 border ${
-                                  setting === value
-                                    ? "bg-blue-500 border-transparent"
-                                    : "border-gray-100"
-                                }  text-sm font-medium rounded-sm text-white bg-gray-750`}
                                 onClick={() => {
                                   handleSetting(null, value);
                                 }}
@@ -225,26 +210,23 @@ export default function SettingDialogueBox({
 
                     {setting === "audio" ? (
                       <div ref={boxRef}>
-                        <div className="w-full">
-                          <div className="grid container grid-flow-col">
-                            <div className="grid grid-cols-12">
-                              <div class="col-span-7">
-                                <div className="flex flex-col mt-6">
-                                  <p className="text-sm text-left text-white font-bold">
-                                    Microphone
-                                  </p>
+                        <div>
+                          <div>
+                            <div>
+                              <div>
+                                <div>
+                                  <p>Microphone</p>
 
-                                  <div className="w-full mt-4 text-left">
-                                    <Popover className="relative">
+                                  <div>
+                                    <Popover>
                                       {({ close }) => (
                                         <>
-                                          <Popover.Button className="flex  w-full ">
-                                            <button className="flex items-center justify-between text-white w-full border border-gray-300 rounded py-3 px-2">
+                                          <Popover.Button>
+                                            <button>
                                               {selectedMicLabel
                                                 ? selectedMicLabel
                                                 : "Select"}
                                               <ChevronDownIcon
-                                                className="h-4 w-4"
                                                 style={{
                                                   color: "white",
                                                 }}
@@ -260,25 +242,18 @@ export default function SettingDialogueBox({
                                             leaveFrom="opacity-100 translate-y-0"
                                             leaveTo="opacity-0 translate-y-1"
                                           >
-                                            <Popover.Panel className="absolute left-1/2  z-10 mt-2 w-full -translate-x-1/2 transform px-4 sm:px-0 pb-4">
-                                              <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                                                <div
-                                                  className={"bg-gray-800 py-1"}
-                                                >
+                                            <Popover.Panel>
+                                              <div>
+                                                <div>
                                                   <div>
-                                                    <div className="flex flex-col">
+                                                    <div>
                                                       {mics.map(
                                                         (item, index) => {
                                                           return (
                                                             item?.kind ===
                                                               "audioinput" && (
-                                                              <div
-                                                                className={`px-3 py-1 my-1 pl-6 text-white text-left 
-                                                            `}
-                                                              >
+                                                              <div>
                                                                 <button
-                                                                  className={`flex flex-1 w-full 
-                                                              `}
                                                                   key={`mics_${index}`}
                                                                   value={
                                                                     item?.deviceId
@@ -325,13 +300,10 @@ export default function SettingDialogueBox({
                                 </div>
                               </div>
 
-                              <div class="col-span-5">
-                                <div className="p-4 relative mt-0 md:mt-10 ">
-                                  <div
-                                    className="flex flex-1 relative w-1/2 md:w-full h-1/2 md:h-auto overflow-hidden rounded"
-                                    style={{ paddingTop: "56.25%" }}
-                                  >
-                                    <div className="md:absolute top-0 bottom-0 left-0 right-0 flex items-start flex-col rounded-sm overflow-hidden">
+                              <div>
+                                <div>
+                                  <div style={{ paddingTop: "56.25%" }}>
+                                    <div>
                                       <AudioAnalyser audioTrack={audioTrack} />
                                     </div>
                                   </div>
@@ -343,26 +315,23 @@ export default function SettingDialogueBox({
                       </div>
                     ) : setting === "video" ? (
                       <div ref={boxRef}>
-                        <div className="w-full">
-                          <div className="grid container grid-flow-col">
-                            <div className="grid grid-cols-12">
-                              <div className="col-span-7">
-                                <div className="flex flex-col mt-6">
-                                  <p className="text-sm text-left text-white font-bold">
-                                    Camera
-                                  </p>
+                        <div>
+                          <div>
+                            <div>
+                              <div>
+                                <div>
+                                  <p>Camera</p>
 
-                                  <div className="w-full mt-4 text-left">
-                                    <Popover className="relative">
+                                  <div>
+                                    <Popover>
                                       {({ close }) => (
                                         <>
-                                          <Popover.Button className="flex  w-full ">
-                                            <button className="flex items-center justify-between text-white w-full border border-gray-300 rounded py-3 px-2">
+                                          <Popover.Button>
+                                            <button>
                                               {selectedWebcamLabel
                                                 ? selectedWebcamLabel
                                                 : "Select"}
                                               <ChevronDownIcon
-                                                className="h-4 w-4"
                                                 style={{
                                                   color: "white",
                                                 }}
@@ -378,25 +347,18 @@ export default function SettingDialogueBox({
                                             leaveFrom="opacity-100 translate-y-0"
                                             leaveTo="opacity-0 translate-y-1"
                                           >
-                                            <Popover.Panel className="absolute left-1/2  z-10 mt-2 w-full -translate-x-1/2 transform px-4 sm:px-0 pb-4">
-                                              <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                                                <div
-                                                  className={"bg-gray-800 py-1"}
-                                                >
+                                            <Popover.Panel>
+                                              <div>
+                                                <div>
                                                   <div>
-                                                    <div className="flex flex-col">
+                                                    <div>
                                                       {webcams.map(
                                                         (item, index) => {
                                                           return (
                                                             item?.kind ===
                                                               "videoinput" && (
-                                                              <div
-                                                                className={`px-3 py-1 my-1 pl-6 text-white text-left 
-                                                            `}
-                                                              >
+                                                              <div>
                                                                 <button
-                                                                  className={`flex flex-1 w-full 
-                                                              `}
                                                                   key={`webcam_${index}`}
                                                                   value={
                                                                     item?.deviceId
@@ -444,13 +406,10 @@ export default function SettingDialogueBox({
                                   </div>
                                 </div>
                               </div>
-                              <div className="col-span-5">
-                                <div className="p-4 relative mt-0 md:mt-10 ">
-                                  <div
-                                    className="flex flex-1 relative w-1/2 md:w-full h-1/2 md:h-auto overflow-hidden rounded"
-                                    style={{ paddingTop: "56.25%" }}
-                                  >
-                                    <div className="md:absolute top-0 bottom-0 left-0 right-0 flex items-start flex-col rounded-sm overflow-hidden">
+                              <div>
+                                <div>
+                                  <div style={{ paddingTop: "56.25%" }}>
+                                    <div>
                                       <video
                                         autoPlay
                                         playsInline
@@ -460,9 +419,6 @@ export default function SettingDialogueBox({
                                         style={{
                                           backgroundColor: "#1c1c1c",
                                         }}
-                                        className={
-                                          "rounded-md h-full w-full object-cover flip"
-                                        }
                                       />
                                     </div>
                                   </div>

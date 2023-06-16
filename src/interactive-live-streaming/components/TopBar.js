@@ -214,7 +214,7 @@ export function TopBar({ topBarHeight }) {
     );
   };
   return (
-    <div className="md:flex md:items-center md:justify-end pt-2 lg:px-2 xl:px-6 pb-0 px-2 hidden">
+    <div>
       <RecordingBTN />
       <HLSBTN />
     </div>
