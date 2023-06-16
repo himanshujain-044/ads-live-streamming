@@ -36,8 +36,7 @@ const Poll = ({ poll, isDraft, publishDraftPoll }) => {
 
   const { publish: EndPublish } = usePubSub(`END_POLL`);
 
-  const { hasCorrectAnswer, hasTimer, timeout, createdAt, isActive, index } =
-    poll;
+  const { hasTimer, timeout, createdAt, isActive, index } = poll;
 
   const [timeLeft, setTimeLeft] = useState(0);
   const [isTimerPollActive, setIsTimerPollActive] = useState(false);
@@ -54,61 +53,60 @@ const Poll = ({ poll, isDraft, publishDraftPoll }) => {
     [hasTimer, isTimerPollActive, isActive]
   );
 
-  const { totalSubmissions, groupedSubmissionCount, maxSubmittedOptions } =
-    useMemo(() => {
-      const localSubmittedOption = poll?.submissions?.find(
-        ({ participantId }) => participantId === localParticipantId
-      );
+  const { totalSubmissions, groupedSubmissionCount } = useMemo(() => {
+    const localSubmittedOption = poll?.submissions?.find(
+      ({ participantId }) => participantId === localParticipantId
+    );
 
-      const totalSubmissions = poll?.submissions?.length || 0;
+    const totalSubmissions = poll?.submissions?.length || 0;
 
-      const groupedSubmissionCount = poll?.submissions?.reduce(
-        (group, { optionId }) => {
-          group[optionId] = group[optionId] || 0;
+    const groupedSubmissionCount = poll?.submissions?.reduce(
+      (group, { optionId }) => {
+        group[optionId] = group[optionId] || 0;
 
-          group[optionId] += 1;
+        group[optionId] += 1;
 
-          return group;
-        },
-        {}
-      );
+        return group;
+      },
+      {}
+    );
 
-      const maxSubmittedOptions = [];
+    const maxSubmittedOptions = [];
 
-      const maxSubmittedOptionId =
-        groupedSubmissionCount &&
-        Object.keys(groupedSubmissionCount)
-          .map((optionId) => ({
-            optionId,
-            count: groupedSubmissionCount[optionId],
-          }))
-          .sort((a, b) => {
-            if (a.count > b.count) {
-              return -1;
-            }
-            if (a.count < b.count) {
-              return 1;
-            }
-            return 0;
-          })[0]?.optionId;
-
+    const maxSubmittedOptionId =
       groupedSubmissionCount &&
-        Object.keys(groupedSubmissionCount).forEach((optionId) => {
-          if (
-            groupedSubmissionCount[optionId] ===
-            groupedSubmissionCount[maxSubmittedOptionId]
-          ) {
-            maxSubmittedOptions.push(optionId);
+      Object.keys(groupedSubmissionCount)
+        .map((optionId) => ({
+          optionId,
+          count: groupedSubmissionCount[optionId],
+        }))
+        .sort((a, b) => {
+          if (a.count > b.count) {
+            return -1;
           }
-        });
+          if (a.count < b.count) {
+            return 1;
+          }
+          return 0;
+        })[0]?.optionId;
 
-      return {
-        localSubmittedOption,
-        totalSubmissions,
-        groupedSubmissionCount,
-        maxSubmittedOptions,
-      };
-    }, [poll, localParticipantId]);
+    groupedSubmissionCount &&
+      Object.keys(groupedSubmissionCount).forEach((optionId) => {
+        if (
+          groupedSubmissionCount[optionId] ===
+          groupedSubmissionCount[maxSubmittedOptionId]
+        ) {
+          maxSubmittedOptions.push(optionId);
+        }
+      });
+
+    return {
+      localSubmittedOption,
+      totalSubmissions,
+      groupedSubmissionCount,
+      maxSubmittedOptions,
+    };
+  }, [poll, localParticipantId]);
 
   const checkTimeOver = ({ timeout, createdAt }) =>
     !(new Date(createdAt).getTime() + timeout * 1000 > new Date().getTime());
@@ -168,8 +166,6 @@ const Poll = ({ poll, isDraft, publishDraftPoll }) => {
               : 0;
 
             const percentage = (total ? total / totalSubmissions : 0) * 100;
-
-            const isCorrectOption = item.isCorrect;
 
             return (
               <div

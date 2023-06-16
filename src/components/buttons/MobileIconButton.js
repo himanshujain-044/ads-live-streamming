@@ -21,6 +21,7 @@ export const MobileIconButton = ({
   const [mouseDown, setMouseDown] = useState(false);
 
   const [tooltipShow, setTooltipShow] = useState(false);
+  console.log(tooltipShow);
   const btnRef = useRef();
   const tooltipRef = useRef();
 

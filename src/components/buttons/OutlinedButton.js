@@ -26,6 +26,7 @@ export const OutlinedButton = ({
   const [blinkingState, setBlinkingState] = useState(1);
 
   const [tooltipShow, setTooltipShow] = useState(false);
+  console.log(tooltipShow);
   const btnRef = useRef();
   const tooltipRef = useRef();
 

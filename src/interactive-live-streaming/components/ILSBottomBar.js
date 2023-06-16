@@ -145,6 +145,7 @@ export function ILSBottomBar({
     };
 
     const [tooltipShow, setTooltipShow] = useState(false);
+    console.log(tooltipShow);
     const btnRef = useRef();
     const tooltipRef = useRef();
 
@@ -262,6 +263,7 @@ export function ILSBottomBar({
     };
 
     const [tooltipShow, setTooltipShow] = useState(false);
+    console.log(tooltipShow);
     const btnRef = useRef();
     const tooltipRef = useRef();
 

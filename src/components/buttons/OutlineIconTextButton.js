@@ -23,7 +23,7 @@ const OutlineIconTextButton = ({
   const [mouseDown, setMouseDown] = useState(false);
   const [blinkingState, setBlinkingState] = useState(1);
   const [tooltipShow, setTooltipShow] = useState(false);
-
+  console.log(tooltipShow);
   const btnRef = useRef();
   const tooltipRef = useRef();
   const intervalRef = useRef();

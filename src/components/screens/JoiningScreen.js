@@ -57,9 +57,9 @@ export function JoiningScreen({
 
   const [audioTrack, setAudioTrack] = useState(null);
 
-  const handleClickOpen = () => {
-    setSettingDialogueOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setSettingDialogueOpen(true);
+  // };
 
   const handleClose = (value) => {
     setSettingDialogueOpen(false);
@@ -294,6 +294,7 @@ export function JoiningScreen({
 
   const ButtonWithTooltip = ({ onClick, onState, OnIcon, OffIcon, mic }) => {
     const [tooltipShow, setTooltipShow] = useState(false);
+    console.log(tooltipShow);
     const btnRef = useRef();
     const tooltipRef = useRef();
 

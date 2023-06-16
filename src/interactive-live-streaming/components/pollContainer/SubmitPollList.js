@@ -32,62 +32,58 @@ const SubmitPollListItem = ({ poll }) => {
     [hasTimer, isTimerPollActive, isActive]
   );
 
-  const {
-    localSubmittedOption,
-    totalSubmissions,
-    groupedSubmissionCount,
-    maxSubmittedOptions,
-  } = useMemo(() => {
-    const localSubmittedOption = poll.submissions.find(
-      ({ participantId }) => participantId === localParticipantId
-    );
+  const { localSubmittedOption, totalSubmissions, groupedSubmissionCount } =
+    useMemo(() => {
+      const localSubmittedOption = poll.submissions.find(
+        ({ participantId }) => participantId === localParticipantId
+      );
 
-    const totalSubmissions = poll.submissions.length;
+      const totalSubmissions = poll.submissions.length;
 
-    const groupedSubmissionCount = poll.submissions.reduce(
-      (group, { optionId }) => {
-        group[optionId] = group[optionId] || 0;
+      const groupedSubmissionCount = poll.submissions.reduce(
+        (group, { optionId }) => {
+          group[optionId] = group[optionId] || 0;
 
-        group[optionId] += 1;
+          group[optionId] += 1;
 
-        return group;
-      },
-      {}
-    );
+          return group;
+        },
+        {}
+      );
 
-    const maxSubmittedOptions = [];
+      const maxSubmittedOptions = [];
 
-    const maxSubmittedOptionId = Object.keys(groupedSubmissionCount)
-      .map((optionId) => ({
-        optionId,
-        count: groupedSubmissionCount[optionId],
-      }))
-      .sort((a, b) => {
-        if (a.count > b.count) {
-          return -1;
+      const maxSubmittedOptionId = Object.keys(groupedSubmissionCount)
+        .map((optionId) => ({
+          optionId,
+          count: groupedSubmissionCount[optionId],
+        }))
+        .sort((a, b) => {
+          if (a.count > b.count) {
+            return -1;
+          }
+          if (a.count < b.count) {
+            return 1;
+          }
+          return 0;
+        })[0]?.optionId;
+
+      Object.keys(groupedSubmissionCount).forEach((optionId) => {
+        if (
+          groupedSubmissionCount[optionId] ===
+          groupedSubmissionCount[maxSubmittedOptionId]
+        ) {
+          maxSubmittedOptions.push(optionId);
         }
-        if (a.count < b.count) {
-          return 1;
-        }
-        return 0;
-      })[0]?.optionId;
+      });
 
-    Object.keys(groupedSubmissionCount).forEach((optionId) => {
-      if (
-        groupedSubmissionCount[optionId] ===
-        groupedSubmissionCount[maxSubmittedOptionId]
-      ) {
-        maxSubmittedOptions.push(optionId);
-      }
-    });
-
-    return {
-      localSubmittedOption,
-      totalSubmissions,
-      groupedSubmissionCount,
-      maxSubmittedOptions,
-    };
-  }, [poll, localParticipantId]);
+      return {
+        localSubmittedOption,
+        totalSubmissions,
+        groupedSubmissionCount,
+        maxSubmittedOptions,
+      };
+    }, [poll, localParticipantId]);
 
   const checkTimeOver = ({ timeout, createdAt }) =>
     !(new Date(createdAt).getTime() + timeout * 1000 > new Date().getTime());
@@ -127,7 +123,7 @@ const SubmitPollListItem = ({ poll }) => {
     const [tooltipShow, setTooltipShow] = useState(false);
     const btnRef = useRef();
     const tooltipRef = useRef();
-
+    console.log(tooltipShow);
     const openTooltip = () => {
       createPopper(btnRef.current, tooltipRef.current, {
         placement: "right",
